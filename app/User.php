@@ -36,4 +36,10 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+    
+    //一対多
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }
