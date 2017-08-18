@@ -43,10 +43,12 @@ class TasksController extends Controller
     public function create()
     {
         $task = new Task;
-        
+        if (\Auth::check()) {
         return view('tasks.create',[
                 'task' => $task,
             ]);
+        }
+        return redirect('/');
     }
 
     /**
@@ -67,6 +69,7 @@ class TasksController extends Controller
         $task->status = $request->status;
         // $request から content を取り出して、新規作成したタスクに代入し保存
         $task->content = $request->content;
+        // ログインしているユーザーのidをuser_idに代入して保存
         $task->user_id = \Auth::user()->id;
         $task->save();
         
